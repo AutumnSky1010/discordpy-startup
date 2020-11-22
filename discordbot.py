@@ -1,14 +1,19 @@
-import discord
+from discord.ext import commands
 import os
 import traceback
 
+bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-@client.event
-async def on_message(message):
-    if message.author==client.user:
-        return
-    if message.content==('こんばんは'):
-        await message.channel.send('こんばんは!!')
 
-client.run(token)
+@bot.event
+async def on_command_error(ctx, error):
+    orig_error = getattr(error, "original", error)
+    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
+    await ctx.send(error_msg)
+
+
+@bot.command()
+async def neko(ctx):
+    await ctx.send('ｷｴｴｴｴｴｴｴｱｱｱｱｱ!!')
+bot.run(token)
