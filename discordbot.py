@@ -9,6 +9,6 @@ async def on_message(message):
     if message.author==client.user:
         return
     if message.content==('こんばんは'):
-        await message.channel.send('こんばんは')
+        await message.channel.send('こんばんは!!')
 
 client.run(token)
